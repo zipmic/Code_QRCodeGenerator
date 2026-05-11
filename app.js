@@ -91,9 +91,18 @@
       return;
     }
 
+    // Guard against CDN script failing to load
+    if (typeof QRCode === "undefined") {
+      setStatus("QR library failed to load. Please check your connection and reload.", true);
+      return;
+    }
+
     clearStatus();
     btn.disabled     = true;
     result.className = "result hidden";
+
+    // Count every real attempt, not just successes, so errors don't bypass the burst limit
+    recordGeneration();
 
     // Use the text value only — never inserted as HTML
     QRCode.toCanvas(canvas, text, {
@@ -108,11 +117,9 @@
       btn.disabled = false;
 
       if (err) {
-        setStatus("Could not generate QR code: " + err.message, true);
+        setStatus("Could not generate QR code. Input may be too long for a single QR code.", true);
         return;
       }
-
-      recordGeneration();
 
       // Composite onto a white-background canvas so JPEG has no black bleed
       // (QRCode.toCanvas already uses a white background, but we make it explicit)

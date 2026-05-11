@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QR Code Generator — code.dk</title>
   <meta name="description" content="Free, instant QR code generator. Paste any text or URL and download a black and white JPEG.">
-  <!-- CSP: no external connections, scripts only from self + jsDelivr CDN -->
+  <!-- CSP: no external connections, scripts only from self + jsDelivr CDN.
+       frame-ancestors and X-Frame-Options are set via HTTP headers in .htaccess -->
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
                  script-src 'self' https://cdn.jsdelivr.net;
                  style-src 'self';
                  img-src 'self' data:;
-                 connect-src 'none';
-                 frame-ancestors 'none'">
+                 connect-src 'none'"
+  >
   <meta name="referrer" content="no-referrer">
   <link rel="stylesheet" href="style.css">
 </head>

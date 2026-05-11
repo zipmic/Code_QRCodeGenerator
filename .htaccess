@@ -1,0 +1,40 @@
+# ── Security headers ─────────────────────────────────────────────────────────
+
+<IfModule mod_headers.c>
+    # Clickjacking protection (frame-ancestors in meta CSP is ignored by browsers)
+    Header always set X-Frame-Options "DENY"
+
+    # Full CSP including frame-ancestors — this overrides the meta tag CSP
+    Header always set Content-Security-Policy "\
+default-src 'self'; \
+script-src 'self' https://cdn.jsdelivr.net; \
+style-src 'self'; \
+img-src 'self' data:; \
+connect-src 'none'; \
+frame-ancestors 'none'"
+
+    # Prevent MIME-type sniffing
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Don't send Referer header when following links off this page
+    Header always set Referrer-Policy "no-referrer"
+
+    # Disable browser features that are not needed
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# ── Nginx equivalent (add to your server block) ───────────────────────────────
+# add_header X-Frame-Options "DENY" always;
+# add_header Content-Security-Policy "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none'" always;
+# add_header X-Content-Type-Options "nosniff" always;
+# add_header Referrer-Policy "no-referrer" always;
+# add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+
+# ── Cache static assets ───────────────────────────────────────────────────────
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css                  "access plus 1 year"
+    ExpiresByType application/javascript    "access plus 1 year"
+    ExpiresByType text/html                 "access plus 1 hour"
+</IfModule>
