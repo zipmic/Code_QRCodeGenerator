@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Generator — code.dk</title>
+  <meta name="description" content="Free, instant QR code generator. Paste any text or URL and download a black and white JPEG.">
+  <!-- CSP: no external connections, scripts only from self + jsDelivr CDN -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self' https://cdn.jsdelivr.net;
+                 style-src 'self';
+                 img-src 'self' data:;
+                 connect-src 'none';
+                 frame-ancestors 'none'">
+  <meta name="referrer" content="no-referrer">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a href="https://www.code.dk" class="home-link">code.dk</a>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h1>QR Code Generator</h1>
+      <p class="tagline">Paste any text or URL — get a black &amp; white QR code instantly.</p>
+    </div>
+
+    <section class="card">
+      <div class="field">
+        <label for="qr-input">Text or URL</label>
+        <textarea
+          id="qr-input"
+          placeholder="https://example.com or any text…"
+          maxlength="2000"
+          rows="5"
+          spellcheck="false"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+        ></textarea>
+        <div class="char-row">
+          <span id="char-count">0</span>&thinsp;/&thinsp;2000
+        </div>
+      </div>
+
+      <button id="generate-btn" type="button">Generate QR Code</button>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="result" class="result hidden" aria-label="Generated QR code">
+      <canvas id="qr-canvas"></canvas>
+      <a id="download-btn" class="download-btn" download="qrcode.jpg">
+        Download JPEG
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <a href="https://www.code.dk">code.dk</a>
+  </footer>
+
+  <!--
+    qrcode.js 1.5.3 — MIT licence
+    https://github.com/soldair/node-qrcode
+    integrity hash verified against jsDelivr published file
+  -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"
+    integrity="sha256-F/XmJMW0GjV9plS9N/uS5WP0ACGAnPNdgXMLsQARmA4="
+    crossorigin="anonymous"
+  ></script>
+  <script src="app.js"></script>
+</body>
+</html>
