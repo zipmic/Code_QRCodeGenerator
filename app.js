@@ -106,7 +106,7 @@
 
     // Use the text value only — never inserted as HTML
     QRCode.toCanvas(canvas, text, {
-      width:            400,
+      width:            800,
       margin:           2,
       color: {
         dark:  "#000000",
