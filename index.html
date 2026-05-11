@@ -54,8 +54,10 @@
       <p id="status" class="status" role="status" aria-live="polite"></p>
     </section>
 
+    <canvas id="qr-canvas" hidden></canvas>
+
     <section id="result" class="result hidden" aria-label="Generated QR code">
-      <canvas id="qr-canvas"></canvas>
+      <img id="qr-img" alt="Generated QR code" width="260" height="260">
       <a id="download-btn" class="download-btn" download="qrcode.jpg">
         Download JPEG
       </a>

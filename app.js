@@ -15,6 +15,7 @@
   var input       = document.getElementById("qr-input");
   var btn         = document.getElementById("generate-btn");
   var canvas      = document.getElementById("qr-canvas");
+  var qrImg       = document.getElementById("qr-img");
   var result      = document.getElementById("result");
   var downloadBtn = document.getElementById("download-btn");
   var statusEl    = document.getElementById("status");
@@ -132,6 +133,7 @@
       ctx.drawImage(canvas, 0, 0);
 
       var dataUrl = jpegCanvas.toDataURL("image/jpeg", 1.0);
+      qrImg.src        = dataUrl;
       downloadBtn.href = dataUrl;
 
       result.className = "result";

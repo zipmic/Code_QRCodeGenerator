@@ -185,12 +185,13 @@ button#generate-btn:disabled {
   display: none;
 }
 
-#qr-canvas {
+#qr-img {
   display: block;
-  width: 260px !important;
-  height: 260px !important;
+  width: 260px;
+  height: 260px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  image-rendering: pixelated;
 }
 
 /* ── Download button ──────────────────────────────────────── */
@@ -242,8 +243,8 @@ footer a:hover {
   .card {
     padding: 1.25rem;
   }
-  #qr-canvas {
-    width: 220px !important;
-    height: 220px !important;
+  #qr-img {
+    width: 220px;
+    height: 220px;
   }
 }
