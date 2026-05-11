@@ -4,14 +4,24 @@
     # Clickjacking protection (frame-ancestors in meta CSP is ignored by browsers)
     Header always set X-Frame-Options "DENY"
 
-    # Full CSP including frame-ancestors — this overrides the meta tag CSP
+    # Full CSP — fully self-hosted, no external origins
     Header always set Content-Security-Policy "\
 default-src 'self'; \
-script-src 'self' https://cdn.jsdelivr.net; \
+script-src 'self'; \
 style-src 'self'; \
 img-src 'self' data:; \
 connect-src 'none'; \
+base-uri 'self'; \
+form-action 'none'; \
+object-src 'none'; \
 frame-ancestors 'none'"
+
+    # Cross-origin isolation (Spectre mitigation)
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    Header always set Cross-Origin-Resource-Policy "same-origin"
+
+    # HSTS — require HTTPS for 1 year (remove includeSubDomains if subdomains aren't all HTTPS)
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 
     # Prevent MIME-type sniffing
     Header always set X-Content-Type-Options "nosniff"
@@ -25,10 +35,13 @@ frame-ancestors 'none'"
 
 # ── Nginx equivalent (add to your server block) ───────────────────────────────
 # add_header X-Frame-Options "DENY" always;
-# add_header Content-Security-Policy "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none'" always;
+# add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'self'; form-action 'none'; object-src 'none'; frame-ancestors 'none'" always;
 # add_header X-Content-Type-Options "nosniff" always;
 # add_header Referrer-Policy "no-referrer" always;
 # add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+# add_header Cross-Origin-Opener-Policy "same-origin" always;
+# add_header Cross-Origin-Resource-Policy "same-origin" always;
+# add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
 # ── Cache static assets ───────────────────────────────────────────────────────
 

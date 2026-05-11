@@ -5,14 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QR Code Generator — code.dk</title>
   <meta name="description" content="Free, instant QR code generator. Paste any text or URL and download a black and white JPEG.">
-  <!-- CSP: no external connections, scripts only from self + jsDelivr CDN.
-       frame-ancestors and X-Frame-Options are set via HTTP headers in .htaccess -->
+  <!-- CSP: fully self-hosted, no external origins needed.
+       frame-ancestors and X-Frame-Options are enforced via HTTP headers in .htaccess -->
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
-                 script-src 'self' https://cdn.jsdelivr.net;
+                 script-src 'self';
                  style-src 'self';
                  img-src 'self' data:;
-                 connect-src 'none'"
+                 connect-src 'none';
+                 base-uri 'self';
+                 form-action 'none';
+                 object-src 'none'"
   >
   <meta name="referrer" content="no-referrer">
   <link rel="stylesheet" href="style.css">
@@ -63,16 +66,8 @@
     <a href="https://www.code.dk">code.dk</a>
   </footer>
 
-  <!--
-    qrcode.js 1.5.3 — MIT licence
-    https://github.com/soldair/node-qrcode
-    integrity hash verified against jsDelivr published file
-  -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"
-    integrity="sha256-F/XmJMW0GjV9plS9N/uS5WP0ACGAnPNdgXMLsQARmA4="
-    crossorigin="anonymous"
-  ></script>
+  <!-- qrcode.js 1.5.3 — MIT licence — vendored locally from npm:qrcode -->
+  <script src="qrcode.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
